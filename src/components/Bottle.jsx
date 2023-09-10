@@ -1,7 +1,7 @@
 import Rating from "./Rating";
 
 // eslint-disable-next-line react/prop-types
-const Bottle = ({ bottle, indx }) => {
+const Bottle = ({ bottle, indx, handleCart }) => {
   // eslint-disable-next-line react/prop-types
   const { name, img, seller, price } = bottle;
   return (
@@ -15,7 +15,12 @@ const Bottle = ({ bottle, indx }) => {
         <p>Brand: {seller}</p>
         <Rating indx={indx} />
         <div className="card-actions my-3">
-          <button className="btn btn-sm btn-primary">Add to cart</button>
+          <button
+            onClick={() => handleCart(bottle)}
+            className="btn btn-sm btn-primary"
+          >
+            Add to cart
+          </button>
         </div>
       </div>
     </div>
