@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import Bottle from "./Bottle";
 import { useState } from "react";
-import { addCartLS, getCartStorage } from "../utilities/localstorage";
+import {
+  addCartLS,
+  getCartStorage,
+  removeCartItem,
+} from "../utilities/localstorage";
 
 const Bottles = () => {
   const [bottles, setBottles] = useState([]);
@@ -30,6 +34,12 @@ const Bottles = () => {
     addCartLS(bottle.id);
   };
 
+  const handleRemove = (id) => {
+    const remainingCart = cart.filter((cart) => cart.id !== id);
+    setCart(remainingCart);
+    removeCartItem(id);
+  };
+
   return (
     <div className="px-12">
       <h1 className="text-xl font-semibold text-right my-3">
@@ -38,11 +48,15 @@ const Bottles = () => {
       <div className="flex gap-5">
         {cart &&
           cart.map((bottle) => (
-            <img
-              src={bottle.img}
-              key={bottle.id}
-              className="w-16 rounded-full"
-            />
+            <div key={bottle.id} className="flex flex-col items-center gap-2">
+              <img src={bottle.img} className="w-16 rounded-full" />
+              <button
+                onClick={() => handleRemove(bottle.id)}
+                className="btn btn-sm btn-outline btn-warning text-xs"
+              >
+                Remove
+              </button>
+            </div>
           ))}
       </div>
       <div className="grid grid-cols-4 gap-5">

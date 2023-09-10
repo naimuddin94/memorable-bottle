@@ -12,4 +12,10 @@ const addCartLS = (cartId) => {
   localStorage.setItem("cart", JSON.stringify(newCart));
 };
 
-export { addCartLS, getCartStorage };
+const removeCartItem = (id) => {
+  const newCart = getCartStorage();
+  const remaining = newCart.filter((cart) => cart !== id);
+  localStorage.setItem("cart", JSON.stringify(remaining));
+};
+
+export { addCartLS, getCartStorage, removeCartItem };
